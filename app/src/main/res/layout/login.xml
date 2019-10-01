@@ -6,44 +6,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center">
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@drawable/img_login"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="300dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/login_image"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/dog_footprint"
+        app:civ_border_width="5dp"
+        app:civ_border_color="#FF000000"/>
+
+    <EditText
+        android:id="@+id/txt_user"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="usuario"
-        app:boxStrokeColor="@color/cardview_dark_background"
+        android:layout_margin="20dp"
+        android:hint="Usuario"
+        android:inputType="text"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textCursorDrawable="@null"
         >
+    </EditText>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="300dp"
+    <EditText
+        android:id="@+id/txt_pwd"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="contrasenia"
-        app:boxStrokeColor="@color/cardview_dark_background"
+        android:layout_margin="20dp"
+        android:hint="Contrasenia"
+        android:inputType="textPassword"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textCursorDrawable="@null"
         >
+    </EditText>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+    <Button android:id="@+id/okButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duenio"
+        />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <Button android:id="@+id/btn_paseador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paseador"/>
 
-<Button android:id="@+id/okButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="ingresar"
-    />
 </LinearLayout>
