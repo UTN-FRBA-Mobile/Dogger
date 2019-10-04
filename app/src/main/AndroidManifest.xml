@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DuenioInicioActivity"></activity>
         <activity android:name=".PosicionPaseadorActivity"></activity>
+        <activity android:name=".PaseadorInicioActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

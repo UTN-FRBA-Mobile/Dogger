@@ -6,6 +6,7 @@ import android.content.Intent
 import kotlinx.android.synthetic.main.login.*
 
 private val DUENIO_REQUEST = 1
+private val PASEADOR_REQUEST = 2
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         okButton.setOnClickListener {
             onButtonPressed()
         }
+        btn_paseador.setOnClickListener {
+            onPaseadorButtonPressed()
+        }
     }
 
     fun onButtonPressed() {
@@ -22,5 +26,9 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, DUENIO_REQUEST)
     }
 
+    fun onPaseadorButtonPressed() {
+        val intent = Intent(this, PaseadorInicioActivity::class.java)
+        startActivityForResult(intent, PASEADOR_REQUEST)
+    }
 }
 
