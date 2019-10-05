@@ -1,10 +1,13 @@
 package com.example.dogger
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import kotlinx.android.synthetic.main.activity_duenio_inicio.*
 
+private val POSICION_PASEADOR_REQUEST = 1
 
 class DuenioInicioActivity : AppCompatActivity() {
     var array = arrayOf(
@@ -36,5 +39,14 @@ class DuenioInicioActivity : AppCompatActivity() {
 
         val listView:ListView = findViewById(R.id.recipe_list_view)
         listView.setAdapter(adapter)
+
+        mapButton.setOnClickListener {
+            onButtonPressed()
+        }
+    }
+
+    fun onButtonPressed() {
+        val intent = Intent(this, PosicionPaseadorActivity::class.java)
+        startActivityForResult(intent, POSICION_PASEADOR_REQUEST)
     }
 }

@@ -7,22 +7,18 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/mapButton"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/foot_dog_gps"
-        app:civ_border_width="5dp"
-        app:civ_border_color="#FF000000"
-        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="380dp"
+        android:src="@drawable/position_paseador" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Paseos programados"
+        android:text="Recorrido"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp"
         android:textStyle="bold" />
