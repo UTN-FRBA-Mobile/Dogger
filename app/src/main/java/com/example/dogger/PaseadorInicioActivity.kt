@@ -7,8 +7,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_paseador_inicio.*
 
-
 private val LISTA_MASCOTA_REQUEST = 1
+private val CALENDARIO_PASEADOR_REQUEST = 2
 
 class PaseadorInicioActivity : AppCompatActivity(){
     private var paseosDeHoy = arrayOf(
@@ -34,16 +34,24 @@ class PaseadorInicioActivity : AppCompatActivity(){
         )
 
         val listView: ListView = findViewById(R.id.lsv_paseos_de_hoy)
-
         listView.setAdapter(adapter)
 
         btn_mascotas.setOnClickListener {
             onButtonPressed()
+        }
+
+        btn_agenda.setOnClickListener {
+            onAgendaButtonPressed()
         }
     }
 
     private fun onButtonPressed() {
         val intent = Intent(this, ListaMascotasActivity::class.java)
         startActivityForResult(intent, LISTA_MASCOTA_REQUEST)
+    }
+
+    private fun onAgendaButtonPressed() {
+        val intent = Intent(this, CalendarioPaseadorActivity::class.java)
+        startActivityForResult(intent, CALENDARIO_PASEADOR_REQUEST)
     }
 }
