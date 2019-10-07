@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,44 +17,47 @@
         app:civ_border_width="5dp"
         app:civ_border_color="#FF000000"/>
 
-    <EditText
-        android:id="@+id/txt_user"
+    <TextView
+        android:id="@+id/txt_nombre"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:hint="Usuario"
-        android:inputType="text"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:hint="Nombre"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:textCursorDrawable="@null"
         >
-    </EditText>
+    </TextView>
 
-    <EditText
-        android:id="@+id/txt_pwd"
+    <TextView
+        android:id="@+id/txt_direccion"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:hint="Contrasenia"
-        android:inputType="textPassword"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:hint="Direccion"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:textCursorDrawable="@null"
         >
-    </EditText>
+    </TextView>
 
-    <Button android:id="@+id/okButton"
+    <TextView
+        android:id="@+id/txt_descripcion"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:hint="Esta es la descripcion de firulais. Solo come comida balanceada, es manso, esta vacunado."
+        android:backgroundTint="@color/colorPrimaryDark"
+        >
+    </TextView>
+
+    <Button android:id="@+id/btn_ver_direccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Duenio"
-        />
+        android:text="Ver direccion en mapa"/>
 
-    <Button android:id="@+id/btn_paseador"
+    <Button android:id="@+id/btn_editar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Paseador"/>
-
-    <Button android:id="@+id/btn_perfil_mascota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Perfil mascota"/>
+        android:text="Editar"/>
 
 </LinearLayout>

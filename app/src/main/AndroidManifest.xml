@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ListaMascotasActivity"></activity>
+        <activity android:name=".PerfilMascotaActivity"></activity>
         <activity android:name=".DuenioInicioActivity"></activity>
         <activity android:name=".PosicionPaseadorActivity"></activity>
         <activity android:name=".PaseadorInicioActivity"></activity>
