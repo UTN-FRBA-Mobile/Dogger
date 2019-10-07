@@ -51,9 +51,4 @@
         android:layout_height="wrap_content"
         android:text="Paseador"/>
 
-    <Button android:id="@+id/btn_perfil_mascota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Perfil mascota"/>
-
 </LinearLayout>
