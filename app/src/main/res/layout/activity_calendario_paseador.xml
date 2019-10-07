@@ -4,56 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_mascotas"
-            android:layout_width="145dp"
-            android:layout_height="145dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/Mascotas"
-            android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btn_agenda"
-            android:layout_width="145dp"
-            android:layout_height="145dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/Agenda"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/txv_FechaHoy"
             android:layout_width="363dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:text="@string/PaseosDeHoy"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_mascotas" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ListView
-            android:id="@+id/lsv_paseos_de_hoy"
+            android:id="@+id/lsv_PaseosDeHoy"
             android:layout_width="363dp"
-            android:layout_height="311dp"
+            android:layout_height="266dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txv_FechaHoy" />
+
+        <TextView
+            android:id="@+id/txv_FechaManiana"
+            android:layout_width="363dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lsv_PaseosDeHoy" />
+
+        <ListView
+            android:id="@+id/lsv_PaseosDeManiana"
+            android:layout_width="363dp"
+            android:layout_height="271dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txv_FechaManiana" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
