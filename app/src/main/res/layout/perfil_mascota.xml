@@ -10,7 +10,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/login_image"
+        android:id="@+id/rounded_pet_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/dog_footprint"
