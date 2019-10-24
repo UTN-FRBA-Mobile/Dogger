@@ -43,10 +43,18 @@ class DuenioInicioActivity : AppCompatActivity() {
         mapButton.setOnClickListener {
             onButtonPressed()
         }
+
+        whatsappButton.setOnClickListener {
+            openWhatsapp()
+        }
     }
 
     fun onButtonPressed() {
         val intent = Intent(this, PosicionPaseadorActivity::class.java)
         startActivityForResult(intent, POSICION_PASEADOR_REQUEST)
+    }
+
+    fun openWhatsapp(){
+
     }
 }
