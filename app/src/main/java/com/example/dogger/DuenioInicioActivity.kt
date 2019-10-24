@@ -7,6 +7,9 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_duenio_inicio.*
 
+import android.content.ComponentName
+
+
 private val POSICION_PASEADOR_REQUEST = 1
 
 class DuenioInicioActivity : AppCompatActivity() {
@@ -30,6 +33,8 @@ class DuenioInicioActivity : AppCompatActivity() {
         "25 de julio 09:00"
     )
 
+    var nroPaseador = "+549 11 3090 8399" // contains spaces.
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_duenio_inicio)
@@ -45,7 +50,7 @@ class DuenioInicioActivity : AppCompatActivity() {
         }
 
         whatsappButton.setOnClickListener {
-            openWhatsapp()
+            openWhatsapp(nroPaseador)
         }
     }
 
@@ -54,7 +59,12 @@ class DuenioInicioActivity : AppCompatActivity() {
         startActivityForResult(intent, POSICION_PASEADOR_REQUEST)
     }
 
-    fun openWhatsapp(){
+    fun openWhatsapp(toNumber: String) {
+        var number = toNumber.replace("+", "").replace(" ", "")
 
+        val sendIntent = Intent("android.intent.action.MAIN")
+        sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
+        sendIntent.putExtra("jid", "$number@s.whatsapp.net")
+        startActivity(sendIntent)
     }
 }
