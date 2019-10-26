@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_recycler_view.view.*
 
-class AdapterMascotas(items: Array<Mascota>): RecyclerView.Adapter<AdapterMascotas.ViewHolder>() {
+class AdapterMascotas(items: List<Mascota>): RecyclerView.Adapter<AdapterMascotas.ViewHolder>() {
 
-    var items:Array<Mascota>
+    var items:List<Mascota>
     lateinit var viewHolder:ViewHolder
 
     init {
@@ -29,9 +29,9 @@ class AdapterMascotas(items: Array<Mascota>): RecyclerView.Adapter<AdapterMascot
 
     override fun onBindViewHolder(holder: AdapterMascotas.ViewHolder, position: Int) {
         val item = items.get(position)
-        holder.nombre.text = item?.nombre
+        holder.nombre.text = item.nombre
         holder.foto.setImageResource(item.foto)
-        holder.nombre_duenio.text = item?.nombre_duenio
+        holder.nombre_duenio.text = item.nombre_duenio
         holder.foto_duenio.setImageResource(item.foto_duenio)
     }
 
