@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rounded_pet_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/dog_footprint"
+        app:civ_border_width="5dp"
+        app:civ_border_color="#FF000000"
+        android:padding="5dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_toRightOf="@+id/rounded_pet_image"
+        android:layout_alignBottom="@+id/rounded_pet_image"
+        android:id="@+id/rounded_pet_owner"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/dog_footprint"
+        app:civ_border_width="5dp"
+        app:civ_border_color="#FF000000"
+        android:padding="5dp"/>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_toRightOf="@+id/rounded_pet_image"
+        android:id="@+id/tv_pet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la mascota"
+        ></TextView>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tv_pet_address"
+        android:layout_below="@+id/tv_pet_name"
+        android:layout_toRightOf="@+id/rounded_pet_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Direccion de la mascota"
+        ></TextView>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_toRightOf="@+id/rounded_pet_owner"
+        android:layout_alignTop="@+id/rounded_pet_owner"
+        android:id="@+id/tv_pet_owner_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del duenio"
+        ></TextView>
+
+</RelativeLayout>
