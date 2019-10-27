@@ -3,4 +3,6 @@
     <string name="Mascotas">Mascotas</string>
     <string name="Agenda">Agenda</string>
     <string name="PaseosDeHoy">Paseos de Hoy</string>
+
+    <string name="title_activity_maps">Map</string>
 </resources>
