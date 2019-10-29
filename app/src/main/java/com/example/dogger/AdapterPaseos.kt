@@ -27,16 +27,17 @@ class AdapterPaseos(private val items: List<Paseo>): RecyclerView.Adapter<Adapte
         val item = items[position]
         holder.nombre.text = item.nombreMascota
         holder.foto.setImageResource(item.fotoMascota)
-//        holder.nombre_duenio.text = item.nombre_duenio
-//        holder.foto_duenio.setImageResource(item.foto_duenio)
-
+        holder.direccion.text = item.direccionMascota
+        holder.horaRetiro.text = item.horaRetiro
+        holder.horaDevolucion.text = item.horaDevolucion
     }
 
     class ViewHolder(vista: View): RecyclerView.ViewHolder(vista){
-        var foto: CircleImageView = vista.rounded_pet_image
-        var nombre:TextView = vista.tv_pet_name
-//        var foto_duenio:CircleImageView = vista.rounded_pet_owner
-//        var nombre_duenio:TextView = vista.tv_pet_owner_name
+        var foto: CircleImageView = vista.tv_foto_mascota
+        var nombre: TextView = vista.tv_nombre_mascota
+        var direccion: TextView = vista.tv_direccion_mascota
+        var horaRetiro: TextView = vista.tv_hora_retiro
+        var horaDevolucion: TextView = vista.tv_hora_devolucion
 
     }
 }
