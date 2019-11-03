@@ -1,63 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:gravity="center"
-    >
+    android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/rounded_pet_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/dog_footprint"
-        app:civ_border_width="5dp"
-        app:civ_border_color="#FF000000"/>
-
-    <TextView
-        android:id="@+id/txt_nombre"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:orientation="vertical"
         android:gravity="center"
-        android:hint="Nombre"
-        android:backgroundTint="@color/colorPrimaryDark"
         >
-    </TextView>
 
-    <TextView
-        android:id="@+id/txt_direccion"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:hint="Direccion"
-        android:backgroundTint="@color/colorPrimaryDark"
-        >
-    </TextView>
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/rounded_pet_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/dog_footprint"
+            app:civ_border_width="5dp"
+            app:civ_border_color="#FF000000"/>
 
-    <TextView
-        android:id="@+id/txt_descripcion"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:hint="Esta es la descripcion de firulais. Solo come comida balanceada, es manso, esta vacunado."
-        android:backgroundTint="@color/colorPrimaryDark"
-        >
-    </TextView>
+        <TextView
+            android:id="@+id/txt_nombre"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:hint="Nombre"
+            android:backgroundTint="@color/colorPrimaryDark"
+            >
+        </TextView>
 
-    <Button android:id="@+id/btn_ver_direccion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ver direccion en mapa"/>
+        <TextView
+            android:id="@+id/txt_descripcion"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:hint="Solo come comida balanceada, es manso, esta vacunado."
+            android:backgroundTint="@color/colorPrimaryDark"
+            >
+        </TextView>
 
-    <Button android:id="@+id/btn_editar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar"/>
+        <ImageView
+            android:id="@+id/btn_ver_direccion"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/maps_icon"
+            />
 
-</LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/rounded_owner_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/dog_footprint"
+            app:civ_border_width="5dp"
+            app:civ_border_color="#FF000000"/>
+
+        <TextView
+            android:id="@+id/txt_nombre_duenio"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:hint="Nombre"
+            android:backgroundTint="@color/colorPrimaryDark"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/whatsappButton_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/whatsapp"
+            app:civ_border_color="#FF000000"/>
+
+    </LinearLayout>
+</ScrollView>
