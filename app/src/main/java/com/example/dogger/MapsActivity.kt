@@ -35,9 +35,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        val mascota = intent.getSerializableExtra("EXTRA_MASCOTA") as Mascota
+
         // Add a marker in Sydney and move the camera
-        val utn_medrano = LatLng(-34.598566, -58.419835)
-        mMap.addMarker(MarkerOptions().position(utn_medrano).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(utn_medrano))
+        val location = LatLng(mascota.lat, mascota.lon)
+        mMap.addMarker(MarkerOptions().position(location).title("Marker in Sydney"))
+
+        val zoomLevel = 12.0f //This goes up to 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel))
     }
 }
