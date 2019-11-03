@@ -1,54 +1,88 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/rounded_pet_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/tv_foto_mascota"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:padding="5dp"
         android:src="@drawable/dog_footprint"
-        app:civ_border_width="5dp"
         app:civ_border_color="#FF000000"
-        android:padding="5dp"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_toRightOf="@+id/rounded_pet_image"
-        android:layout_alignBottom="@+id/rounded_pet_image"
-        android:id="@+id/rounded_pet_owner"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/dog_footprint"
         app:civ_border_width="5dp"
-        app:civ_border_color="#FF000000"
-        android:padding="5dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_toRightOf="@+id/rounded_pet_image"
-        android:id="@+id/tv_pet_name"
+    <TextView
+        android:id="@+id/tv_nombre_mascota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre de la mascota"
-        ></TextView>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/texto_ayuda_nombre_mascota"
+        app:layout_constraintStart_toEndOf="@+id/tv_foto_mascota"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/tv_pet_address"
-        android:layout_below="@+id/tv_pet_name"
-        android:layout_toRightOf="@+id/rounded_pet_image"
+    <TextView
+        android:id="@+id/tv_direccion_mascota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Direccion de la mascota"
-        ></TextView>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/texto_ayuda_direccion_mascota"
+        app:layout_constraintStart_toEndOf="@+id/tv_foto_mascota"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nombre_mascota"></TextView>
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_toRightOf="@+id/rounded_pet_owner"
-        android:layout_alignTop="@+id/rounded_pet_owner"
-        android:id="@+id/tv_pet_owner_name"
+    <TextView
+        android:id="@+id/tv_titulo_retirar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre del duenio"
-        ></TextView>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/titulo_retirar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_foto_mascota"
+        app:layout_constraintTop_toBottomOf="@+id/tv_direccion_mascota"></TextView>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/tv_hora_retiro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/tv_titulo_retirar"
+        android:text="00:00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_titulo_retirar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_direccion_mascota"></TextView>
+
+    <TextView
+        android:id="@+id/tv_titulo_devolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/titulo_devolver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_hora_retiro"
+        app:layout_constraintTop_toBottomOf="@+id/tv_direccion_mascota"></TextView>
+
+    <TextView
+        android:id="@+id/tv_hora_devolucion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="00:00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_titulo_devolver"
+        app:layout_constraintTop_toBottomOf="@+id/tv_direccion_mascota"></TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

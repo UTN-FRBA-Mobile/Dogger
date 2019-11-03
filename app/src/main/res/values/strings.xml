@@ -5,4 +5,8 @@
     <string name="PaseosDeHoy">Paseos de Hoy</string>
 
     <string name="title_activity_maps">Map</string>
+    <string name="texto_ayuda_nombre_mascota">Nombre de la mascota</string>
+    <string name="texto_ayuda_direccion_mascota">Direccion de la mascota</string>
+    <string name="titulo_retirar">Retirar:</string>
+    <string name="titulo_devolver">Devolver:</string>
 </resources>
