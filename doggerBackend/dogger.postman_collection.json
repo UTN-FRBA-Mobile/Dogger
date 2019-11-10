@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "e0d27fac-e3d3-4df8-98f5-526d638c281d",
+		"name": "flowtraceGo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/device",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/device/jon",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_device\":\"cVisJYjTbBA:APA91bFzpW-M4hrsuwtChFlUyJ3qJtBNawNw20yx5kmcMIluN-67FWCcBan76O_cjhKczSOBpMxSHSaK55dqBRM2wsViGWrZpPhkeJlwNJYMqpz_Z41Fk05UzzTw5CA9_nDejzaE6zg6\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/devices/jon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"devices",
+						"jon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/tracing",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_users\":\"jon\",\n\t\"follow\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tracing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tracing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/tracing",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_users\": [\"jon\"],\n\t\"follow\": false\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/tracing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tracing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/location",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id_user\":1,\n\t\"longitude\":-4.5,\n\t\"latitude\":2,\n\t\"timestamp\":\"4\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/locations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/locations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"locations"
+					],
+					"query": [
+						{
+							"key": "id_user_target",
+							"value": "user_1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

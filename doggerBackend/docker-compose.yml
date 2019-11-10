@@ -1,0 +1,35 @@
+version: '3'
+services:
+  dogger-backend:
+    image: dogger-backend
+    container_name: dogger-backend
+    tty: true
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=DEV
+    volumes:
+      - ./backend:/dogger/backend
+    command: bash
+    networks:
+      - dogger-net
+    links:
+      - dogger-mongo:db
+    depends_on:
+      - dogger-mongo
+  
+  dogger-mongo:
+    image: mongo
+    container_name: dogger-mongo
+    ports:
+      - 21018:27017
+    networks:
+      - dogger-net
+    volumes:
+      - ./mongo:/data/db
+
+networks:
+  dogger-net:
+    driver: bridge
+
