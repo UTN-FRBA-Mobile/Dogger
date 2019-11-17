@@ -42,6 +42,10 @@ dependencies {
 
     //Maps
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    //Floating Action Button
+    implementation 'com.google.android.material:material:1.0.0'
 }
 
 
