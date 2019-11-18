@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import kotlinx.android.synthetic.main.activity_duenio_inicio.*
+import kotlinx.android.synthetic.main.activity_posicion_paseador.*
 
 
 class PosicionPaseadorActivity : AppCompatActivity() {
@@ -16,7 +16,9 @@ class PosicionPaseadorActivity : AppCompatActivity() {
         "Jujuy",
         "Juan de Garay",
         "La rioja",
-        "Chiclana"
+        "Chiclana",
+        "Cordoba",
+        "Rivadavia"
     )
 
     var nroPaseador = "+549 11 3090 8399" // contains spaces.
@@ -31,7 +33,7 @@ class PosicionPaseadorActivity : AppCompatActivity() {
         val listView:ListView = findViewById(R.id.recipe_list_view)
         listView.setAdapter(adapter)
 
-        whatsappButton.setOnClickListener {
+        fab_whatsapp_btn.setOnClickListener {
             openWhatsapp(nroPaseador)
         }
     }

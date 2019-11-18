@@ -8,6 +8,10 @@ import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_duenio_inicio.*
 
 import android.content.ComponentName
+import android.view.View
+import android.widget.Toast
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_posicion_paseador.*
 
 
 private val POSICION_PASEADOR_REQUEST = 1
@@ -49,7 +53,8 @@ class DuenioInicioActivity : AppCompatActivity() {
             onButtonPressed()
         }
 
-        whatsappButton.setOnClickListener {
+        fab_btn.setOnClickListener {
+//            Toast.makeText(this, "Prueba", Toast.LENGTH_LONG).show()
             openWhatsapp(nroPaseador)
         }
     }
