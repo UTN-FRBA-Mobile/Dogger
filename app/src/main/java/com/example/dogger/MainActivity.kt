@@ -17,13 +17,14 @@ import kotlinx.android.synthetic.main.login.*
 private val DUENIO_REQUEST = 1
 private val PASEADOR_REQUEST = 2
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+// NavigationView.OnNavigationItemSelectedListener
+class MainActivity : AppCompatActivity() {
 
     val db = FirebaseFirestore.getInstance()
 
-    lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
+//    lateinit var toolbar: Toolbar
+//    lateinit var drawerLayout: DrawerLayout
+//    lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -177,21 +178,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    // Navigation Drawer
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_profile -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_update -> {
-                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_logout -> {
-                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
-            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
+//    // Navigation Drawer
+//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.nav_profile -> {
+//                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+//            }
+//            R.id.nav_update -> {
+//                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
+//            }
+//            R.id.nav_logout -> {
+//                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//        drawerLayout.closeDrawer(GravityCompat.START)
+//        return true
+//    }
 }
 

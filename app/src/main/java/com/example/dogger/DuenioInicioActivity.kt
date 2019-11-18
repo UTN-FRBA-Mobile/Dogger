@@ -8,15 +8,18 @@ import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_duenio_inicio.*
 
 import android.content.ComponentName
-import android.view.View
+import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_posicion_paseador.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
 
 private val POSICION_PASEADOR_REQUEST = 1
 
-class DuenioInicioActivity : AppCompatActivity() {
+class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var array = arrayOf(
         "9 de julio 10:00",
         "10 de julio 10:00",
@@ -39,9 +42,14 @@ class DuenioInicioActivity : AppCompatActivity() {
 
     var nroPaseador = "+549 11 3090 8399" // contains spaces.
 
+
+    lateinit var toolbar: Toolbar
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navView: NavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_duenio_inicio)
+        setContentView(R.layout.activity_main_duenio)
 
         val adapter = ArrayAdapter(this,
             R.layout.list_view_item, array)
@@ -57,6 +65,20 @@ class DuenioInicioActivity : AppCompatActivity() {
 //            Toast.makeText(this, "Prueba", Toast.LENGTH_LONG).show()
             openWhatsapp(nroPaseador)
         }
+
+                // Navigation Drawer
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, 0, 0
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
     }
 
     fun onButtonPressed() {
@@ -71,5 +93,22 @@ class DuenioInicioActivity : AppCompatActivity() {
         sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
         sendIntent.putExtra("jid", "$number@s.whatsapp.net")
         startActivity(sendIntent)
+    }
+
+        // Navigation Drawer
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_profile -> {
+                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_update -> {
+                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_logout -> {
+                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 }
