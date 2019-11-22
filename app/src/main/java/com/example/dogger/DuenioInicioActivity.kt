@@ -1,13 +1,12 @@
 package com.example.dogger
 
-import android.content.Intent
+import android.content.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_duenio_inicio.*
 
-import android.content.ComponentName
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,6 +14,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.util.Log
 
 
 private val POSICION_PASEADOR_REQUEST = 1
@@ -79,6 +83,19 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+
+
+        /**snip **/
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.package.ACTION_LOGOUT")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("onReceive", "Logout in progress")
+                //At this point you should start the login activity and finish this one
+                finish()
+            }
+        }, intentFilter)
+        //** snip **//
     }
 
     fun onButtonPressed() {
@@ -110,6 +127,12 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
             R.id.nav_logout -> {
 //                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+
+                val broadcastIntent = Intent()
+                broadcastIntent.action = "com.package.ACTION_LOGOUT"
+                sendBroadcast(broadcastIntent)
+
+
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }

@@ -1,8 +1,11 @@
 package com.example.dogger
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.content.IntentFilter
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -53,6 +56,19 @@ class MainActivity : AppCompatActivity() {
 //        drawerLayout.addDrawerListener(toggle)
 //        toggle.syncState()
 //        navView.setNavigationItemSelectedListener(this)
+
+        /**snip **/
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.package.ACTION_LOGOUT")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("onReceive", "Logout in progress")
+                //At this point you should start the login activity and finish this one
+                finish()
+            }
+        }, intentFilter)
+        //** snip **//
+
     }
 
     fun onButtonPressed() {

@@ -1,6 +1,9 @@
 package com.example.dogger
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -50,6 +53,19 @@ class ListaMascotasActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w("[ERROR-MASCOTA]", "Error getting documents.", exception)
             }
+
+
+        /**snip **/
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.package.ACTION_LOGOUT")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("onReceive", "Logout in progress")
+                //At this point you should start the login activity and finish this one
+                finish()
+            }
+        }, intentFilter)
+        //** snip **//
     }
 
     fun openPerfil(mascota: Mascota){

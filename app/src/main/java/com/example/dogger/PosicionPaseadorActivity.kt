@@ -1,12 +1,16 @@
 package com.example.dogger
 
-import android.content.ComponentName
-import android.content.Intent
+import android.content.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_posicion_paseador.*
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.util.Log
 
 
 class PosicionPaseadorActivity : AppCompatActivity() {
@@ -36,6 +40,18 @@ class PosicionPaseadorActivity : AppCompatActivity() {
         fab_whatsapp_btn.setOnClickListener {
             openWhatsapp(nroPaseador)
         }
+
+        /**snip **/
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.package.ACTION_LOGOUT")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("onReceive", "Logout in progress")
+                //At this point you should start the login activity and finish this one
+                finish()
+            }
+        }, intentFilter)
+        //** snip **//
     }
 
 

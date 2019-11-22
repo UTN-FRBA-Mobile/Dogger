@@ -1,7 +1,11 @@
 package com.example.dogger
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -68,6 +72,19 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+
+
+        /**snip **/
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.package.ACTION_LOGOUT")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("onReceive", "Logout in progress")
+                //At this point you should start the login activity and finish this one
+                finish()
+            }
+        }, intentFilter)
+        //** snip **//
     }
 
     private fun onButtonPressed() {
@@ -95,6 +112,11 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
             R.id.nav_logout -> {
 //                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+
+                val broadcastIntent = Intent()
+                broadcastIntent.action = "com.package.ACTION_LOGOUT"
+                sendBroadcast(broadcastIntent)
+
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
