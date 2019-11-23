@@ -122,7 +122,7 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
             R.id.nav_update -> {
                 Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, UserProfileActivity::class.java)
+                val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_logout -> {
@@ -133,7 +133,7 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 sendBroadcast(broadcastIntent)
 
 
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
         }

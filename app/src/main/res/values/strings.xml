@@ -9,4 +9,10 @@
     <string name="texto_ayuda_direccion_mascota">Direccion de la mascota</string>
     <string name="titulo_retirar">Retirar:</string>
     <string name="titulo_devolver">Devolver:</string>
+
+
+    <string-array name="typeUser">
+        <item>Dueñio</item>
+        <item>Paseador</item>
+    </string-array>
 </resources>
