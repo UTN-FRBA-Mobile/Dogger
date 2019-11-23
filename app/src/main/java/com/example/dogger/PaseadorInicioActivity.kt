@@ -117,7 +117,7 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 broadcastIntent.action = "com.package.ACTION_LOGOUT"
                 sendBroadcast(broadcastIntent)
 
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
         }

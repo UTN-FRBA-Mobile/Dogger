@@ -1,9 +1,13 @@
 package com.example.dogger
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -28,6 +32,18 @@ class LoginActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
 
         auth = FirebaseAuth.getInstance()
+
+        /**snip **/
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.package.ACTION_LOGOUT")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("onReceive", "Logout in progress")
+                //At this point you should start the login activity and finish this one
+                finish()
+            }
+        }, intentFilter)
+        //** snip **//
     }
 
     fun forgotPassword(view:View){
