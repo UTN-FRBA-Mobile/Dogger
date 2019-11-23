@@ -13,6 +13,17 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -77,6 +88,32 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun action(){
-        startActivity(Intent(this, MainActivity::class.java))
+        val user: FirebaseUser?=auth.currentUser
+        val userKey = user?.uid
+
+        var mDatabase = FirebaseDatabase.getInstance()
+        var mDb = mDatabase.getReference()
+
+
+        mDb.child("User").child(userKey!!).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val usertype = dataSnapshot.child("userType").getValue(String::class.java)
+                runActivity(usertype)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+
+    }
+
+    private fun runActivity(usertype: String?) {
+
+        when (usertype) {
+            "Dueñio" -> startActivity(Intent(this,DuenioInicioActivity::class.java))
+            "Paseador" -> startActivity(Intent(this,PaseadorInicioActivity::class.java))
+            else -> { // Note the block
+                Toast.makeText(this,"Error:" + usertype, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
