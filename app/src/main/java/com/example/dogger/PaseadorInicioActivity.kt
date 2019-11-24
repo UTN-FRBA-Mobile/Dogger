@@ -103,11 +103,13 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
             R.id.nav_profile -> {
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, UserProfileActivity::class.java)
+                intent.putExtra("View", "READONLY")
                 startActivity(intent)
             }
             R.id.nav_update -> {
                 Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, UserProfileActivity::class.java)
+                intent.putExtra("View", "UPDATE")
                 startActivity(intent)
             }
             R.id.nav_logout -> {
