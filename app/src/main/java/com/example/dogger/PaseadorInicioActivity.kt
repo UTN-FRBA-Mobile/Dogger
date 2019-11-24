@@ -15,8 +15,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_paseador_inicio.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 private val LISTA_MASCOTA_REQUEST = 1
 private val CALENDARIO_PASEADOR_REQUEST = 2
@@ -85,6 +92,49 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
         }, intentFilter)
         //** snip **//
+
+        // Esta pantalla es la primera que ve el Paseador. Por lo tanto en el onCreate podemos hacer el registro
+        // del dispositivo para posteriormente realizarle el seguimiento
+        // Configuro Retrofit
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.205.109:8080")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create<ApiService>(ApiService::class.java)
+        // Obtengo el token del dispositivo
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("[TOKEN-ERROR]", "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Obtengo el token
+                val token: String = task.result?.token  as String
+
+                Log.i("[TOKEN]", token)
+                // Registro en el backend un dispositivo a seguir
+                service.registerDevice(91, RegisterRequest(token)).enqueue(
+                    object : Callback<RegisterResponse> {
+                        override fun onResponse(
+                            call: Call<RegisterResponse>,
+                            response: Response<RegisterResponse>
+                        ) {
+                            val registerResponse = response.body()
+                            Log.i("[REGISTER-RESPONSE]", registerResponse.toString())
+                        }
+
+                        override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                            Log.i("[REGISTER-ERROR]",t.message.toString())
+                        }
+                    }
+                )
+            })
+
+
+
+
+
     }
 
     private fun onButtonPressed() {
