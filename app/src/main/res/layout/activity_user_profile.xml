@@ -36,15 +36,15 @@
                     android:src="@drawable/edit_profile"></ImageView>
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_name"
+            <EditText
+                android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgUser"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15sp"
                 android:fontFamily="sans-serif-light"
-                android:text="Usuario Name"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="32sp" />
         </RelativeLayout>
@@ -65,7 +65,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="30dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -74,54 +74,21 @@
                         android:textColor="@color/headings"
                         android:textSize="13sp"/>
 
-                    <TextView
+                    <EditText
                         android:id="@+id/txtEmail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:textColor="#000000"
                         android:textSize="18sp"
-                        android:text="aarando@gmail.com"/>
+                        android:text=""/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/grad"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Contraseña"
-                        android:textColor="@color/headings"
-                        android:textSize="13sp"/>
-
-                    <TextView
-                        android:id="@+id/txtContraseña"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:text="****************"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/grad"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="30dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -130,20 +97,15 @@
                         android:textColor="@color/headings"
                         android:textSize="13sp"/>
 
-                    <TextView
-                        android:id="@+id/txtTipoUsuario"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/txtTypeUser"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:text=""/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/grad"/>
                 </LinearLayout>
 
             </LinearLayout>

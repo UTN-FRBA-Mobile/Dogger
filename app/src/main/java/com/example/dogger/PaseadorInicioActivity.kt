@@ -151,18 +151,16 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, UserProfileActivity::class.java)
+                intent.putExtra("View", "READONLY")
                 startActivity(intent)
             }
             R.id.nav_update -> {
-                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, UserProfileActivity::class.java)
+                intent.putExtra("View", "UPDATE")
                 startActivity(intent)
             }
             R.id.nav_logout -> {
-//                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
-
                 val broadcastIntent = Intent()
                 broadcastIntent.action = "com.package.ACTION_LOGOUT"
                 sendBroadcast(broadcastIntent)
