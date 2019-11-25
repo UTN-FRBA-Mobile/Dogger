@@ -5,7 +5,7 @@ import retrofit2.http.*
 
 interface ApiService{
     @PUT("devices/{user}")
-    fun registerDevice(@Path("user") id_user: Int, @Body registerRequest: RegisterRequest): Call<RegisterResponse>
+    fun registerDevice(@Path("user") id_user: String, @Body registerRequest: RegisterRequest): Call<RegisterResponse>
 }
 
 class RegisterResponse(

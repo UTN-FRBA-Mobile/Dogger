@@ -33,7 +33,7 @@ func NewTracing(c *gin.Context) {
 		})
 
 	} else {
-		users, err := service.StopTracing(tracingDevice)
+		userOffTrack, err := service.StopTracing(tracingDevice)
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
@@ -43,7 +43,7 @@ func NewTracing(c *gin.Context) {
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"users": users,
+			"user": userOffTrack,
 		})
 
 	}

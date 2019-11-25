@@ -19,12 +19,19 @@ func UpdateLocation(c *gin.Context) {
 		return
 	}
 
-	var userLocation dto.UserLocationDTO
+	var userLocation dto.UpsertLocationDTO
 	userLocation.Id_user = sLocation.Id_user
 	userLocation.Location.Longitude = sLocation.Longitude
 	userLocation.Location.Latitude = sLocation.Latitude
 
-	service.InsertLocation(userLocation)
+	err = service.UpdateLocation(userLocation)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "the location could not be updated",
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "the location has been updated successfully",

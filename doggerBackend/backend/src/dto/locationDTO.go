@@ -15,7 +15,7 @@ type SignatureFilterLocationDTO struct {
 
 type UserLocationDTO struct {
 	Id_user		string		`json:"id_user"`
-	Location 	LocationDTO `json:"Location"`
+	Location 	LocationDTO `json:"location"`
 }
 
 type LocationDTO struct {
@@ -25,4 +25,9 @@ type LocationDTO struct {
 
 type FilterLocationDTO struct {
 	Id_user		string
+}
+
+type UpsertLocationDTO struct {
+	Id_user		string		`json:"id_user"`
+	Location 	LocationDTO `json:"Location"`
 }
