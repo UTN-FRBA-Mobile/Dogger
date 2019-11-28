@@ -1,13 +1,14 @@
 package com.example.dogger
 
 
-class Paseo(fecha: String, horaRetiro: String, horaDevolucion: String, nombreMascota: String, direccionMascota: String, fotoMascota: Int) {
-    private var fecha: String = fecha
-//    private var idMascota: Int = idMascota
-//    private var idPaseador: Int = idPaseador
-    var horaRetiro: String = horaRetiro
-    var horaDevolucion: String = horaDevolucion
-    var nombreMascota: String = nombreMascota
-    var direccionMascota: String = direccionMascota
-    var fotoMascota: Int = fotoMascota
-}
+import java.io.Serializable
+
+data class Paseo(
+    val id_paseador: String  = "",
+    val fecha_paseo: String  = "",
+    val hora_retiro: String = "",
+    val hora_devolucion: String  = "",
+    val nombre_mascota: String  = "",
+    val direccion_mascota: String = "",
+    val foto_mascota: Int = 0
+): Serializable
