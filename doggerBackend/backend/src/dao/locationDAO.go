@@ -24,9 +24,18 @@ func InsertLocation(userLocation *model.UserLocation) (err error) {
 	return
 }
 
+func UpdateLocation(locationFinder model.LocationFinder, userLocation *model.UserLocation) error {
+	return cLocation.Update(locationFinder, userLocation)
+}
+
 func GetAllLocations(filterLocation model.FilterLocation) (locations []model.UserLocation, err error) {
 	filtro:=ToFilter(filterLocation)
 	err = cLocation.Find(filtro).All(&locations)
+	return
+}
+
+func FindLocation(locationFinder model.LocationFinder) (userLocation model.UserLocation, err error) {
+	err = cLocation.Find(locationFinder).One(&userLocation)
 	return
 }
 

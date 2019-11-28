@@ -19,6 +19,11 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 private val POSICION_PASEADOR_REQUEST = 1
@@ -50,10 +55,18 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
+    lateinit var service: ApiServiceDuenio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_duenio)
+
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.205.109:8080")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        this.service = retrofit.create(ApiServiceDuenio::class.java)
 
         val adapter = ArrayAdapter(this,
             R.layout.list_view_item, array)
@@ -100,7 +113,27 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     fun onButtonPressed() {
         val intent = Intent(this, PosicionPaseadorActivity::class.java)
-        startActivityForResult(intent, POSICION_PASEADOR_REQUEST)
+
+        this.service.tracing(FollowRequest("jon",true)).enqueue(
+            object : Callback<FollowResponse> {
+                override fun onResponse(
+                    call: Call<FollowResponse>,
+                    response: Response<FollowResponse>
+                ) {
+                    val FollowResponse = response.body()
+                    Log.i("[FOLLOW-RESPONSE]", FollowResponse.toString())
+
+                    startActivityForResult(intent, POSICION_PASEADOR_REQUEST)
+                }
+
+                override fun onFailure(call: Call<FollowResponse>, t: Throwable) {
+                    Log.i("[FOLLOW-ERROR]",t.message.toString())
+                    Toast.makeText(applicationContext, "No se puede seguir al paseador", Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
+
+
     }
 
     fun openWhatsapp(toNumber: String) {

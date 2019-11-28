@@ -16,3 +16,7 @@ type Location struct {
 type FilterLocation struct {
 	Id_user		string		`json:"id_user" bson:"id_user"`
 }
+
+type LocationFinder struct {
+	Id_user			string	`json:"id_user" bson:"id_user"`
+}

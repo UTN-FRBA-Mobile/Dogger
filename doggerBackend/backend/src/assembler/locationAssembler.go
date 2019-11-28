@@ -7,7 +7,6 @@ import (
 
 type UserLocation struct {
 	Id_user		string	`json:"id_user" bson:"id_user"`
-	Timestamp	string	`json:"timestamp" bson:"timestamp"`
 	Location 	Location `json:"location" bson:"location"`
 }
 
@@ -39,5 +38,10 @@ func ToUserLocationDTO(userLocation model.UserLocation) (userLocationDTO dto.Use
 	userLocationDTO.Id_user	 			= userLocation.Id_user
 	userLocationDTO.Location.Longitude 	= userLocation.Location.Coordinates[0]
 	userLocationDTO.Location.Latitude 	= userLocation.Location.Coordinates[1]
+	return
+}
+
+func FromUpsertLocationDTO(upsertLocation dto.UpsertLocationDTO) (mLocationFinder model.LocationFinder){
+	mLocationFinder.Id_user = upsertLocation.Id_user
 	return
 }

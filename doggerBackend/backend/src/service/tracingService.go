@@ -38,11 +38,10 @@ func StopTracing(tracingDevice dto.TracingDeviceDTO) (id_user string, err error)
 	device, err := dao.FindDevice(deviceFinder)
 	deviceDTO := assembler.ToDeviceDTO(device)
 	if err == nil {
-		if deviceDTO.Followers <= 1 {
-			deliverer.UnregisterDevice(deviceDTO)
-			deviceDTO.Followers = 0
-		}
 		deviceDTO.Followers -= 1
+		if deviceDTO.Followers == 0 {
+			deliverer.UnregisterDevice(deviceDTO)
+		}
 		device := assembler.FromDeviceDTO(deviceDTO)
 		err = dao.UpdateDevice(deviceFinder, &device)
 		
