@@ -25,11 +25,11 @@ class AdapterPaseos(private val items: List<Paseo>): RecyclerView.Adapter<Adapte
 
     override fun onBindViewHolder(holder: AdapterPaseos.ViewHolder, position: Int) {
         val item = items[position]
-        holder.nombre.text = item.nombreMascota
-        holder.foto.setImageResource(item.fotoMascota)
-        holder.direccion.text = item.direccionMascota
-        holder.horaRetiro.text = item.horaRetiro
-        holder.horaDevolucion.text = item.horaDevolucion
+        holder.nombre.text = item.nombre_mascota
+        holder.foto.setImageResource(item.foto_mascota)
+        holder.direccion.text = item.direccion_mascota
+        holder.horaRetiro.text = item.hora_retiro
+        holder.horaDevolucion.text = item.hora_devolucion
     }
 
     class ViewHolder(vista: View): RecyclerView.ViewHolder(vista){
