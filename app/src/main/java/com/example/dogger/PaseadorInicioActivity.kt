@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +19,9 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_paseador_inicio.*
 import retrofit2.Call
@@ -48,6 +52,11 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
+    private lateinit var database: FirebaseDatabase
+    private lateinit var dfReference: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_paseador)
@@ -59,6 +68,11 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         val listView: ListView = findViewById(R.id.lsv_paseos_de_hoy)
         listView.setAdapter(adapter)
+
+        database = FirebaseDatabase.getInstance()
+        dfReference = database.getReference()
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
 
         btn_mascotas.setOnClickListener {
             onButtonPressed()
@@ -81,7 +95,7 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
-
+        setNavHeader()
 
         /**snip **/
         val intentFilter = IntentFilter()
@@ -177,5 +191,25 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+
+    private fun setNavHeader() {
+        val navigationView = findViewById(R.id.nav_view) as NavigationView
+        val headerView = navigationView.getHeaderView(0)
+        val navUsername = headerView.findViewById(R.id.txtName) as TextView
+        val navTypeUser = headerView.findViewById(R.id.txtTypeUser) as TextView
+
+        val userKey = user?.uid
+        dfReference.child("User").child(userKey!!).addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userName = dataSnapshot.child("name").getValue(String::class.java)
+                val userType = dataSnapshot.child("userType").getValue(String::class.java)
+                navUsername.text = userName
+                navTypeUser.text = userType
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
     }
 }

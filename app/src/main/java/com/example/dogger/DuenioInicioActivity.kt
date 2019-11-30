@@ -14,16 +14,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 
 
 private val POSICION_PASEADOR_REQUEST = 1
@@ -57,6 +57,12 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     lateinit var navView: NavigationView
     lateinit var service: ApiServiceDuenio
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
+    private lateinit var database: FirebaseDatabase
+    private lateinit var dfReference: DatabaseReference
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_duenio)
@@ -74,12 +80,16 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         val listView:ListView = findViewById(R.id.recipe_list_view)
         listView.setAdapter(adapter)
 
+        database = FirebaseDatabase.getInstance()
+        dfReference = database.getReference()
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
+
         mapButton.setOnClickListener {
             onButtonPressed()
         }
 
         fab_btn.setOnClickListener {
-//            Toast.makeText(this, "Prueba", Toast.LENGTH_LONG).show()
             openWhatsapp(nroPaseador)
         }
 
@@ -97,6 +107,7 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
+        setNavHeader()
 
         /**snip **/
         val intentFilter = IntentFilter()
@@ -109,6 +120,25 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
         }, intentFilter)
         //** snip **//
+    }
+
+    private fun setNavHeader() {
+        val navigationView = findViewById(R.id.nav_view) as NavigationView
+        val headerView = navigationView.getHeaderView(0)
+        val navUsername = headerView.findViewById(R.id.txtName) as TextView
+        val navTypeUser = headerView.findViewById(R.id.txtTypeUser) as TextView
+
+        val userKey = user?.uid
+        dfReference.child("User").child(userKey!!).addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userName = dataSnapshot.child("name").getValue(String::class.java)
+                val userType = dataSnapshot.child("userType").getValue(String::class.java)
+                navUsername.text = userName
+                navTypeUser.text = userType
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
     }
 
     fun onButtonPressed() {
