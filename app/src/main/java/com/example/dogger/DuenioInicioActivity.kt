@@ -154,7 +154,7 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 startActivity(intent)
             }
             R.id.nav_update -> {
-                val intent = Intent(this, RegisterActivity::class.java)
+                val intent = Intent(this, UserProfileActivity::class.java)
                 intent.putExtra("View", "UPDATE")
                 startActivity(intent)
             }

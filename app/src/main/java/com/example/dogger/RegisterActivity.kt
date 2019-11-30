@@ -20,7 +20,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var txtName:EditText
     private lateinit var txtEmail:EditText
     private lateinit var txtPassword:EditText
-    private lateinit var typeUser:AutoCompleteTextView
+    private lateinit var txtTypeUser:AutoCompleteTextView
     private lateinit var progressBar:ProgressBar
 
     private lateinit var dfReference: DatabaseReference
@@ -34,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         txtName = findViewById(R.id.txtName)
         txtEmail = findViewById(R.id.txtEmail)
         txtPassword = findViewById(R.id.txtPassword)
-        typeUser = findViewById(R.id.typeUser)
+        txtTypeUser = findViewById(R.id.typeUser)
         progressBar = findViewById(R.id.progressBar)
 
         database = FirebaseDatabase.getInstance()
@@ -47,23 +47,23 @@ class RegisterActivity : AppCompatActivity() {
             android.R.layout.simple_dropdown_item_1line,
             resources.getStringArray(R.array.typeUser)
         )
-        typeUser.setAdapter(adapter)
+        txtTypeUser.setAdapter(adapter)
         //set spinner
         val spinner = findViewById(R.id.spinner_ip) as Spinner
         spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                typeUser.setText(spinner.getSelectedItem().toString())
-                typeUser.dismissDropDown()
+                txtTypeUser.setText(spinner.getSelectedItem().toString())
+                txtTypeUser.dismissDropDown()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                typeUser.setText(spinner.getSelectedItem().toString())
-                typeUser.dismissDropDown()
+                txtTypeUser.setText(spinner.getSelectedItem().toString())
+                txtTypeUser.dismissDropDown()
             }
         })
     }
 
-    fun register(view:View){
+    fun register() {
         createNewUser()
     }
 
@@ -71,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
         val name:String = txtName.text.toString()
         val email:String = txtEmail.text.toString()
         val password:String = txtPassword.text.toString()
-        val userType:String = typeUser.text.toString()
+        val userType:String = txtTypeUser.text.toString()
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email)
             && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(userType)){

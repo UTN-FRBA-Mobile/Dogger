@@ -97,16 +97,64 @@
                         android:textColor="@color/headings"
                         android:textSize="13sp"/>
 
-                    <EditText
-                        android:id="@+id/txtTypeUser"
+                    <LinearLayout
+                        android:layout_marginBottom="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        android:text=""/>
+                        android:orientation="horizontal">
+                        <AutoCompleteTextView
+                            android:layout_weight="1"
+                            android:id="@+id/txtTypeUser"
+                            android:hint="Tipo de Usuario"
+                            android:layout_width="0dp"
+                            android:layout_height= "wrap_content"
+                            android:enabled="false"
+                            android:theme="@style/Autocomplete"/>
+                        <Spinner
+                            android:layout_marginRight="20dp"
+                            android:layout_width="30dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/spinner_ip"
+                            android:spinnerMode="dropdown"
+                            android:entries="@array/typeUser"/>
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/buttonView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:onClick="cancel"
+                        android:id="@+id/buttonCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CANCELAR"
+                        android:layout_gravity="center"
+                        android:background="@color/headings"
+                        android:textColor="@android:color/white"
+                        android:layout_marginRight="10dp"
+                        />
+
+                    <Button
+                        android:onClick="updateForm"
+                        android:id="@+id/buttonUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GUARDAR"
+                        android:layout_gravity="center"
+                        android:background="@color/headings"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
