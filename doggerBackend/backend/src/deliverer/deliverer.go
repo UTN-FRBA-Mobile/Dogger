@@ -69,10 +69,12 @@ func RegisterDevice(device dto.DeviceDTO) (err error){
 	message := &messaging.Message{
 		Token: device.Id_device,
 		//Si la push notification es silenciosa sacar el atributo Notification
-		Notification: &messaging.Notification{
-			Title: "Hola!",
-			Body:  "Como estas " + device.Id_user + "?",
-		},
+		//Notification: &messaging.Notification{
+		//	Title: "Hola!",
+		//	Body:  "Como estas " + device.Id_user + "?",
+		//},
+		Data: map[string]string{"dummy":"fake",},
+		//Se debe sacar Notification y agregar Data para que pueda procesarse en Background y Foreground
 	}
 	response, err := client.Send(ctx, message)
 	fmt.Println("Send Response", response)

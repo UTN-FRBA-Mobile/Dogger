@@ -4,15 +4,16 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.gms.tasks.OnCompleteListener
@@ -27,8 +28,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private val LISTA_MASCOTA_REQUEST = 1
 private val CALENDARIO_PASEADOR_REQUEST = 2
+private val LOCATION_REQUEST_CODE = 3
 
 class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private var paseosDeHoy = arrayOf(
         "Paseo 1",
         "Paseo 2",
@@ -41,7 +44,6 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
         "Paseo 9",
         "Paseo 10"
     )
-
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
@@ -131,10 +133,14 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 )
             })
 
+        requestLocationPermissions()
+    }
 
-
-
-
+    private fun requestLocationPermissions() {
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+            return
+        }
     }
 
     private fun onButtonPressed() {
