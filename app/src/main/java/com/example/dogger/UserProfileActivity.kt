@@ -66,14 +66,20 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setFormatView() {
-        if(view.equals("READONLY")){
-            txtName.setEnabled(false)
-
-            txtEmail.setEnabled(false)
-
-            txtTypeUser.setEnabled(false)
-
+        when(view){
+            "READONLY" -> {
+                txtName.setEnabled(false)
+                txtEmail.setEnabled(false)
+                txtTypeUser.setEnabled(false)
+                }
+            "UPDATE" -> {
+                updateForm()
+            }
         }
+    }
+
+    private fun updateForm() {
+
     }
 
     private fun loadData(){
