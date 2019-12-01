@@ -22,7 +22,7 @@
         android:layout_margin="20dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:hint="Usuario"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:textCursorDrawable="@null"></EditText>
 
     <EditText
