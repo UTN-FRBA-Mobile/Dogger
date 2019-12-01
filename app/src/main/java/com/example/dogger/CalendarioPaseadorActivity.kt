@@ -70,8 +70,8 @@ class CalendarioPaseadorActivity : AppCompatActivity() {
         val agenda  = mutableListOf<Dia>()
 
         for (i in 0..6) {
-            fecha.add(Calendar.DAY_OF_WEEK, 1)
             agenda.add(Dia(dateFormatter.format(fecha.time), getPaseos(fecha)))
+            fecha.add(Calendar.DAY_OF_WEEK, 1)
         }
 
         return agenda
