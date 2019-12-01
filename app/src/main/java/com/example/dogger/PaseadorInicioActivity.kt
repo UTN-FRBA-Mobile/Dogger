@@ -6,15 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -22,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
-import androidx.core.widget.NestedScrollView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +29,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
-import kotlinx.android.synthetic.main.activity_calendario_paseador.*
 import kotlinx.android.synthetic.main.activity_paseador_inicio.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,15 +36,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private val LISTA_MASCOTA_REQUEST = 1
-private val CALENDARIO_PASEADOR_REQUEST = 2
-private val LOCATION_REQUEST_CODE = 3
+private const val LISTA_MASCOTA_REQUEST = 1
+private const val CALENDARIO_PASEADOR_REQUEST = 2
+private const val LOCATION_REQUEST_CODE = 3
 
 class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var user: FirebaseUser? = auth.currentUser
@@ -126,7 +121,7 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
                 Log.i("[TOKEN]", token)
                 // Registro en el backend un dispositivo a seguir
-                service.registerDevice(this.user.uid, RegisterRequest(token)).enqueue(
+                service.registerDevice(this.user?.uid.toString(), RegisterRequest(token)).enqueue(
                     object : Callback<RegisterResponse> {
                         override fun onResponse(
                             call: Call<RegisterResponse>,
