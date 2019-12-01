@@ -1,5 +1,7 @@
 package com.example.dogger
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +27,8 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var cameraPosition:CameraPosition
 
+    private lateinit var sharedPreference: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,8 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
         simulateButton.setOnClickListener {
             callServerToSimulate()
         }
+
+        this.sharedPreference =  getSharedPreferences("DOGGER-USER", Context.MODE_PRIVATE)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -57,8 +63,8 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun callServerToSimulate() {
-
-        this.service.getPosition("jon").enqueue(
+        val paseadoruid = this.sharedPreference.getString("paseadoruid","defaultname")
+        this.service.getPosition(paseadoruid).enqueue(
             object : Callback<GetPositionResponse> {
                 override fun onResponse(
                     call: Call<GetPositionResponse>,
@@ -93,7 +99,10 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onPause() {
         super.onPause()
-        this.service.tracing(FollowRequest("jon", false)).enqueue(
+
+        val paseadoruid = this.sharedPreference.getString("paseadoruid","defaultname")
+        Log.i(paseadoruid, paseadoruid)
+        this.service.tracing(FollowRequest(paseadoruid, false)).enqueue(
             object : Callback<FollowResponse> {
                 override fun onResponse(
                     call: Call<FollowResponse>,

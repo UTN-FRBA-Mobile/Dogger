@@ -130,7 +130,7 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
                 Log.i("[TOKEN]", token)
                 // Registro en el backend un dispositivo a seguir
-                service.registerDevice("jon", RegisterRequest(token)).enqueue(
+                service.registerDevice(this.user.uid, RegisterRequest(token)).enqueue(
                     object : Callback<RegisterResponse> {
                         override fun onResponse(
                             call: Call<RegisterResponse>,
