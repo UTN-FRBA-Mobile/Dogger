@@ -1,28 +1,39 @@
 package com.example.dogger
 
+import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import androidx.core.widget.NestedScrollView
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.iid.FirebaseInstanceId
+import kotlinx.android.synthetic.main.activity_calendario_paseador.*
 import kotlinx.android.synthetic.main.activity_paseador_inicio.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,43 +47,28 @@ private val LOCATION_REQUEST_CODE = 3
 
 class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var paseosDeHoy = arrayOf(
-        "Paseo 1",
-        "Paseo 2",
-        "Paseo 3",
-        "Paseo 4",
-        "Paseo 5",
-        "Paseo 6",
-        "Paseo 7",
-        "Paseo 8",
-        "Paseo 9",
-        "Paseo 10"
-    )
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var user: FirebaseUser
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var user: FirebaseUser? = auth.currentUser
     private lateinit var database: FirebaseDatabase
     private lateinit var dfReference: DatabaseReference
+    private lateinit var recyclerView : RecyclerView
+    private val db = FirebaseFirestore.getInstance()
 
+    @TargetApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_paseador)
 
-        val adapter = ArrayAdapter(
-            this,
-            R.layout.list_view_item, paseosDeHoy
-        )
-
-        val listView: ListView = findViewById(R.id.lsv_paseos_de_hoy)
-        listView.setAdapter(adapter)
+        initRecycler()
 
         database = FirebaseDatabase.getInstance()
         dfReference = database.getReference()
-        auth = FirebaseAuth.getInstance()
-        user = auth.currentUser!!
+
 
         btn_mascotas.setOnClickListener {
             onButtonPressed()
@@ -157,6 +153,7 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
         }
     }
 
+
     private fun onButtonPressed() {
         val intent = Intent(this, ListaMascotasActivity::class.java)
         startActivityForResult(intent, LISTA_MASCOTA_REQUEST)
@@ -200,7 +197,7 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
         val navUsername = headerView.findViewById(R.id.txtName) as TextView
         val navTypeUser = headerView.findViewById(R.id.txtTypeUser) as TextView
 
-        val userKey = user?.uid
+        val userKey = this.user?.uid
         dfReference.child("User").child(userKey!!).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -211,5 +208,40 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun initRecycler(){
+        recyclerView = rv_paseos_de_hoy
+
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@PaseadorInicioActivity,
+                RecyclerView.VERTICAL, false)
+            adapter = AdapterPaseos(getPaseosDeHoy())
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getPaseosDeHoy() : List<Paseo> {
+        val fecha = Calendar.getInstance()
+        val dateFormatter = SimpleDateFormat("yyyyMMdd")
+        val paseos = mutableListOf<Paseo>()
+
+
+        db.collection("paseos")   //Es asincronico
+            .whereEqualTo("id_paseador", user?.uid)
+            .whereEqualTo("fecha_paseo", dateFormatter.format(fecha))
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("[GET-PASEOS_DE_HOY]", "${document.id} => ${document.data}")
+                    paseos.add(document.toObject(Paseo::class.java))
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("[ERROR-PASEOS_DE_HOY]", "Error getting documents.", exception)
+            }
+        return paseos
     }
 }
