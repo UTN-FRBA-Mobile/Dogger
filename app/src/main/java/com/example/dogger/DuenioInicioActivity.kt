@@ -62,13 +62,16 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     private lateinit var database: FirebaseDatabase
     private lateinit var dfReference: DatabaseReference
 
+    private lateinit var sharedPreference: SharedPreferences
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_duenio)
 
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.205.109:8080")
+            .baseUrl("http://192.168.1.33:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -107,7 +110,10 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
+        this.sharedPreference = getSharedPreferences("DOGGER-USER",Context.MODE_PRIVATE)
+
         setNavHeader()
+        setSharedPref()
 
         /**snip **/
         val intentFilter = IntentFilter()
@@ -118,6 +124,7 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
                 //At this point you should start the login activity and finish this one
                 finish()
             }
+
         }, intentFilter)
         //** snip **//
     }
@@ -141,10 +148,33 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         })
     }
 
+    private fun setSharedPref() {
+        var editor = this.sharedPreference.edit()
+        val userKey = user?.uid
+        dfReference.child("User").child(userKey!!).addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userName = dataSnapshot.child("name").getValue(String::class.java)
+                val nroCel = dataSnapshot.child("nroCel").getValue(String::class.java)
+                val userType = dataSnapshot.child("userType").getValue(String::class.java)
+                val paseadoruid = "dummy"// TODO: dataSnapshot.child("paseadoruid").getValue(String::class.java)
+                editor.putString("userName",userName)
+                editor.putString("nroCel",nroCel)
+                editor.putString("userType",userType)
+                editor.putString("paseadoruid",paseadoruid)
+                editor.commit()
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
     fun onButtonPressed() {
         val intent = Intent(this, PosicionPaseadorActivity::class.java)
 
-        this.service.tracing(FollowRequest("jon",true)).enqueue(
+        val sharedPreference =  getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+        val paseadoruid = sharedPreference.getString("paseadoruid","defaultname")
+        Log.i("paseadoruid",paseadoruid)
+        this.service.tracing(FollowRequest(paseadoruid,true)).enqueue(
             object : Callback<FollowResponse> {
                 override fun onResponse(
                     call: Call<FollowResponse>,
