@@ -25,6 +25,7 @@ class UserProfileActivity : AppCompatActivity() {
 
     private lateinit var txtName: EditText
     private lateinit var txtEmail: EditText
+    private lateinit var txtNroCel:EditText
     private lateinit var txtTypeUser: AutoCompleteTextView
     private lateinit var linearLayout:LinearLayout
     private lateinit var adapter: ArrayAdapter<String>
@@ -47,8 +48,9 @@ class UserProfileActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         dfReference = database.getReference()
 
-        txtName =  findViewById<EditText>(R.id.txtName)
+        txtName =  findViewById(R.id.txtName)
         txtEmail = findViewById(R.id.txtEmail)
+        txtNroCel = findViewById(R.id.txtNroCel)
         txtTypeUser = findViewById(R.id.txtTypeUser)
 
         user = auth.currentUser!!
@@ -88,13 +90,14 @@ class UserProfileActivity : AppCompatActivity() {
         when(view){
             "READONLY" -> {
                 txtName.setEnabled(false)
+                txtNroCel.setEnabled(false)
                 linearLayout.setVisibility(View.INVISIBLE)
                 linearLayout.setEnabled(false)
                 spinner.setVisibility(View.INVISIBLE)
-
                 }
             "UPDATE" -> {
                 txtName.setEnabled(true)
+                txtNroCel.setEnabled(true)
                 linearLayout.setVisibility(View.VISIBLE)
                 linearLayout.setEnabled(true)
                 spinner.setVisibility(View.VISIBLE)
@@ -115,8 +118,10 @@ class UserProfileActivity : AppCompatActivity() {
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userName = dataSnapshot.child("name").getValue(String::class.java)
+                val nroCel = dataSnapshot.child("nroCel").getValue(String::class.java)
                 val userType = dataSnapshot.child("userType").getValue(String::class.java)
                 txtName.setText(userName)
+                txtNroCel.setText(nroCel)
                 val spinnerPosition = adapter.getPosition(userType)
                 spinner.setSelection(spinnerPosition)
             }
@@ -128,11 +133,15 @@ class UserProfileActivity : AppCompatActivity() {
     private fun saveUser() {
         val name:String = txtName.text.toString()
         val userType:String = txtTypeUser.text.toString()
+        val nroCel:String = txtNroCel.text.toString()
 
-        if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(userType)){
+        if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(userType)
+            && !TextUtils.isEmpty(nroCel)){
+
             val userDB = database.reference.child("User").child(user?.uid!!)
             try {
                 userDB.child("name").setValue(name)
+                userDB.child("nroCel").setValue(nroCel)
                 userDB.child("userType").setValue(userType)
             } catch (e: Exception) {
                 Toast.makeText(this, e.message,Toast.LENGTH_LONG).show()

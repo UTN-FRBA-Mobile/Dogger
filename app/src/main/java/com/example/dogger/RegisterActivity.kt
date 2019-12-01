@@ -3,7 +3,6 @@ package com.example.dogger
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telephony.PhoneNumberUtils
 import android.text.TextUtils
 import android.view.View
 import android.widget.*
@@ -44,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         dfReference = database.reference.child("User")
 
-        PhoneNumberUtils.formatNumber(txtNroCel.text.toString())
+//        PhoneNumberUtils.formatNumber(txtNroCel.text.toString())
 
 
         val adapter = ArrayAdapter(
