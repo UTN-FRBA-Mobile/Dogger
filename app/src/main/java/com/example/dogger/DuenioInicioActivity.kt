@@ -71,7 +71,7 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         setContentView(R.layout.activity_main_duenio)
 
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.33:8080")
+            .baseUrl("http://192.168.205.109:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -135,8 +135,8 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         val navUsername = headerView.findViewById(R.id.txtName) as TextView
         val navTypeUser = headerView.findViewById(R.id.txtTypeUser) as TextView
 
-        val userKey = user?.uid
-        dfReference.child("User").child(userKey!!).addValueEventListener(object :
+        val userKey = user.uid
+        dfReference.child("User").child(userKey).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userName = dataSnapshot.child("name").getValue(String::class.java)
@@ -150,8 +150,8 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     private fun setSharedPref() {
         var editor = this.sharedPreference.edit()
-        val userKey = user?.uid
-        dfReference.child("User").child(userKey!!).addValueEventListener(object :
+        val userKey = user.uid
+        dfReference.child("User").child(userKey).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userName = dataSnapshot.child("name").getValue(String::class.java)
@@ -174,7 +174,7 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         val sharedPreference =  getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
         val paseadoruid = sharedPreference.getString("paseadoruid","defaultname")
         Log.i("paseadoruid",paseadoruid)
-        this.service.tracing(FollowRequest(paseadoruid,true)).enqueue(
+        this.service.tracing(FollowRequest(paseadoruid as String,true)).enqueue(
             object : Callback<FollowResponse> {
                 override fun onResponse(
                     call: Call<FollowResponse>,

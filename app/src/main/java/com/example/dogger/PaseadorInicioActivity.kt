@@ -59,8 +59,6 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_paseador)
 
-        initRecycler()
-
         database = FirebaseDatabase.getInstance()
         dfReference = database.getReference()
 
@@ -203,18 +201,6 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun initRecycler(){
-        recyclerView = rv_paseos_de_hoy
-
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@PaseadorInicioActivity,
-                RecyclerView.VERTICAL, false)
-            adapter = AdapterPaseos(getPaseosDeHoy())
-        }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
