@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,14 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/grad"
-            android:paddingBottom="20dp">
+            android:paddingBottom="15dp">
 
             <RelativeLayout
                 android:id="@+id/imgUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/circle_border">
 
                 <ImageView
@@ -61,14 +61,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -115,6 +115,7 @@
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:hint="Email"
+                        android:inputType="textEmailAddress"
                         android:enabled="true"
                         android:theme="@style/Autocomplete"/>
 
@@ -128,7 +129,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -145,6 +146,7 @@
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:hint="Contraseña"
+                        android:inputType="textPassword"
                         android:enabled="true"
                         android:theme="@style/Autocomplete"/>
 
@@ -158,7 +160,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nro de Celular"
+                        android:textColor="@color/headings"
+                        android:textSize="13sp"/>
+
+                    <EditText
+                        android:id="@+id/txtNroCel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:hint="+5911XXXXXXXX"
+                        android:enabled="true"
+                        android:inputType="phone"
+                        android:digits="0123456789+"
+                        android:theme="@style/Autocomplete"/>
+
+                    <!--                    <View-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="1dp"-->
+                    <!--                        android:layout_marginTop="15dp"-->
+                    <!--                        android:background="@drawable/grad"/>-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -168,7 +202,6 @@
                         android:textSize="13sp"/>
 
                     <LinearLayout
-                        android:layout_marginBottom="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -194,7 +227,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
 
                     <Button

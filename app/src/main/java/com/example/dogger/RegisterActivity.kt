@@ -3,6 +3,7 @@ package com.example.dogger
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.PhoneNumberUtils
 import android.text.TextUtils
 import android.view.View
 import android.widget.*
@@ -20,6 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var txtName:EditText
     private lateinit var txtEmail:EditText
     private lateinit var txtPassword:EditText
+    private lateinit var txtNroCel:EditText
     private lateinit var txtTypeUser:AutoCompleteTextView
     private lateinit var progressBar:ProgressBar
 
@@ -34,12 +36,15 @@ class RegisterActivity : AppCompatActivity() {
         txtName = findViewById(R.id.txtName)
         txtEmail = findViewById(R.id.txtEmail)
         txtPassword = findViewById(R.id.txtPassword)
+        txtNroCel = findViewById(R.id.txtNroCel)
         txtTypeUser = findViewById(R.id.typeUser)
         progressBar = findViewById(R.id.progressBar)
 
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
         dfReference = database.reference.child("User")
+
+        PhoneNumberUtils.formatNumber(txtNroCel.text.toString())
 
 
         val adapter = ArrayAdapter(
@@ -63,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
-    fun register() {
+    fun register(view: View) {
         createNewUser()
     }
 
@@ -71,10 +76,13 @@ class RegisterActivity : AppCompatActivity() {
         val name:String = txtName.text.toString()
         val email:String = txtEmail.text.toString()
         val password:String = txtPassword.text.toString()
+        val nroCel:String = txtNroCel.text.toString()
         val userType:String = txtTypeUser.text.toString()
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email)
-            && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(userType)){
+            && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(userType)
+            && !TextUtils.isEmpty(nroCel)){
+
             progressBar.visibility = View.VISIBLE
 
             auth.createUserWithEmailAndPassword(email,password)
@@ -87,6 +95,7 @@ class RegisterActivity : AppCompatActivity() {
                         val userDB = dfReference.child(user?.uid!!)
                         userDB.child("name").setValue(name)
                         userDB.child("userType").setValue(userType)
+                        userDB.child("nroCel").setValue(nroCel)
                         action()
                     }else{
                         try {
