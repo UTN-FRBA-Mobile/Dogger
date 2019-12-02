@@ -13,7 +13,7 @@ android:orientation="vertical">
         android:layout_height="match_parent"
         tools:context=".MapsActivity" />
 <Button
-    android:id="@+id/simulateButton"
+    android:id="@+id/updateButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Update location" />

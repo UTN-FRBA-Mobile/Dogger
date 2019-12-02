@@ -7,6 +7,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -39,9 +40,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Add a marker in Sydney and move the camera
         val location = LatLng(mascota.lat, mascota.lon)
-        mMap.addMarker(MarkerOptions().position(location).title("Marker in Sydney"))
+        mMap.addMarker(MarkerOptions().position(location).title("Marker in Home").icon(
+            BitmapDescriptorFactory.fromResource(R.drawable.iconhome)))
 
-        val zoomLevel = 12.0f //This goes up to 21
+        val zoomLevel = 15.0f //This goes up to 21
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel))
     }
 }

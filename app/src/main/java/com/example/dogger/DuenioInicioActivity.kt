@@ -62,10 +62,6 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     private lateinit var database: FirebaseDatabase
     private lateinit var dfReference: DatabaseReference
 
-    private lateinit var sharedPreference: SharedPreferences
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_duenio)
@@ -110,8 +106,6 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
-        this.sharedPreference = getSharedPreferences("DOGGER-USER",Context.MODE_PRIVATE)
-
         setNavHeader()
         setSharedPref()
 
@@ -149,31 +143,40 @@ class DuenioInicioActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     }
 
     private fun setSharedPref() {
-        var editor = this.sharedPreference.edit()
+
         val userKey = user.uid
         dfReference.child("User").child(userKey).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val sharedPreference = getSharedPreferences("DOGGER-USER",Context.MODE_PRIVATE)
+                val editor = sharedPreference.edit()
                 val userName = dataSnapshot.child("name").getValue(String::class.java)
                 val nroCel = dataSnapshot.child("nroCel").getValue(String::class.java)
                 val userType = dataSnapshot.child("userType").getValue(String::class.java)
-                val paseadoruid = "dummy"// TODO: dataSnapshot.child("paseadoruid").getValue(String::class.java)
+                val paseadoruid = dataSnapshot.child("id_paseador").getValue(String::class.java)
+                val lat= -34.6037389// TODO: dataSnapshot.child("lat").getValue(Float::class.java)
+                val lon = -58.3815704// TODO: dataSnapshot.child("lon").getValue(Float::class.java)
                 editor.putString("userName",userName)
                 editor.putString("nroCel",nroCel)
                 editor.putString("userType",userType)
                 editor.putString("paseadoruid",paseadoruid)
+                editor.commit()
+                editor.putDouble("lat",lat)
+                editor.putDouble("lon",lon)
                 editor.commit()
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
 
+    fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
+        putLong(key, java.lang.Double.doubleToRawLongBits(double))
+
     fun onButtonPressed() {
         val intent = Intent(this, PosicionPaseadorActivity::class.java)
 
-        val sharedPreference =  getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
-        val paseadoruid = sharedPreference.getString("paseadoruid","defaultname")
-        Log.i("paseadoruid",paseadoruid)
+        val sharedPreference =  getSharedPreferences("DOGGER-USER",Context.MODE_PRIVATE)
+        val paseadoruid = sharedPreference.getString("paseadoruid", "default")
         this.service.tracing(FollowRequest(paseadoruid as String,true)).enqueue(
             object : Callback<FollowResponse> {
                 override fun onResponse(

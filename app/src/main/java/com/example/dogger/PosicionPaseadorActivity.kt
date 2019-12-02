@@ -29,6 +29,7 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var sharedPreference: SharedPreferences
 
+    val zoomLevel = 15.0f //This goes up to 21
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,24 +46,32 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
 
         this.service = retrofit.create(ApiServiceDuenio::class.java)
 
-        simulateButton.setOnClickListener {
-            callServerToSimulate()
+        updateButton.setOnClickListener {
+            updateLocation()
         }
 
         this.sharedPreference =  getSharedPreferences("DOGGER-USER", Context.MODE_PRIVATE)
     }
 
+    fun SharedPreferences.getDouble(key: String, default: Double) =
+        java.lang.Double.longBitsToDouble(getLong(key, java.lang.Double.doubleToRawLongBits(default)))
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val location = LatLng(-34.6037389, -58.3815704)
-        mMap.addMarker(MarkerOptions().position(location).title("Marker in Obelisco"))
+        val location = LatLng(
+            this.sharedPreference.getDouble("lat", Double.MIN_VALUE),
+            this.sharedPreference.getDouble("lon", Double.MIN_VALUE)
+//            -34.6037389,
+//            -58.3815704
+        )
+        mMap.addMarker(MarkerOptions().position(location).title("Marker in Home").icon(
+            BitmapDescriptorFactory.fromResource(R.drawable.iconhome)))
 
-        val zoomLevel = 12.0f //This goes up to 21
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel))
     }
 
-    private fun callServerToSimulate() {
+    private fun updateLocation() {
         val paseadoruid = this.sharedPreference.getString("paseadoruid","defaultname")
         this.service.getPosition(paseadoruid).enqueue(
             object : Callback<GetPositionResponse> {
@@ -73,19 +82,26 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
                     val getPositionResponse = response.body()
                     Log.i("[GET-POSITION-RESPONSE]", getPositionResponse.toString())
 
-                    val lat = getPositionResponse?.data?.first()?.location?.latitude as Double
-                    val lon = getPositionResponse.data.first().location.longitude
+                    val location = getPositionResponse?.data?.first()?.location
+                    val lat = location?.latitude
+                    val lon = location?.longitude
 
-                    val location = LatLng(lat, lon)
+                    val locationToUpdate = LatLng(lat as Double, lon as Double)
 
                     mMap.clear()
 
-                    mMap.addMarker(MarkerOptions().position(location).title("Last Location").icon(
+                    val homeLocation = LatLng(
+                        sharedPreference.getDouble("lat", Double.MIN_VALUE),
+                        sharedPreference.getDouble("lon", Double.MIN_VALUE)
+                    )
+                    mMap.addMarker(MarkerOptions().position(homeLocation).title("Marker in Home").icon(
+                        BitmapDescriptorFactory.fromResource(R.drawable.iconhome)))
+
+                    mMap.addMarker(MarkerOptions().position(locationToUpdate).title("Last Location").icon(
                         BitmapDescriptorFactory.fromResource(R.drawable.dogwalker)))
 
-                    val zoomLevel = 12.0f //This goes up to 21
                     cameraPosition = CameraPosition.Builder()
-                        .target(location)
+                        .target(locationToUpdate)
                         .zoom(zoomLevel).build()
                     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
                 }
@@ -100,8 +116,7 @@ class PosicionPaseadorActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onPause() {
         super.onPause()
 
-        val paseadoruid = this.sharedPreference.getString("paseadoruid","defaultname")
-        Log.i(paseadoruid, paseadoruid)
+        val paseadoruid = this.sharedPreference.getString("paseadoruid","default")
         this.service.tracing(FollowRequest(paseadoruid, false)).enqueue(
             object : Callback<FollowResponse> {
                 override fun onResponse(

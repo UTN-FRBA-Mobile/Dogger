@@ -2,6 +2,7 @@ package com.example.dogger
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -46,9 +47,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             mFusedLocationClient.lastLocation.addOnCompleteListener { task ->
                 var location = task.result
                 if (location != null) {
+                    val sharedPreference = getSharedPreferences("DOGGER-USER", Context.MODE_PRIVATE)
                     service.updateLocation(
                         UpdateLocationRequest(
-                            "jon",
+                            sharedPreference.getString("paseadoruid","default"),
                             location.latitude,
                             location.longitude
                         )

@@ -50,7 +50,6 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
     private var user: FirebaseUser? = auth.currentUser
     private lateinit var database: FirebaseDatabase
     private lateinit var dfReference: DatabaseReference
-    private lateinit var recyclerView : RecyclerView
     private val db = FirebaseFirestore.getInstance()
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -202,6 +201,22 @@ class PaseadorInicioActivity : AppCompatActivity(), NavigationView.OnNavigationI
             override fun onCancelled(databaseError: DatabaseError) {}
         })
     }
+
+    private fun setSharedPref() {
+        val userKey = user?.uid as String
+        dfReference.child("User").child(userKey).addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val sharedPreference = getSharedPreferences("DOGGER-USER",Context.MODE_PRIVATE)
+                val editor = sharedPreference.edit()
+                val paseadoruid = userKey
+                editor.putString("paseadoruid",paseadoruid)
+                editor.commit()
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getPaseosDeHoy() : List<Paseo> {
