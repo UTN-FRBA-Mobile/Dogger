@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -39,7 +39,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        >
 
         <Button
             android:id="@+id/btn_mascotas"
@@ -48,9 +49,11 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:text="@string/Mascotas"
+            android:textColor="@color/white"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/mascotas"/>
 
         <Button
             android:id="@+id/btn_agenda"
@@ -59,13 +62,10 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:text="@string/Agenda"
-            android:textAlignment="center"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/agenda"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
