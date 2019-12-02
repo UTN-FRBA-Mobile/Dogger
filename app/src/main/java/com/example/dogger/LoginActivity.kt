@@ -18,11 +18,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 
 class LoginActivity : AppCompatActivity() {
@@ -68,8 +63,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser(){
-        val user:String = txtUser.text.toString()
-        val password:String = txtPassword.text.toString()
+//        val user:String = txtUser.text.toString()
+//        val password:String = txtPassword.text.toString()
+        val user = "alvaro.arando@gmail.com"
+        val password = "123456"
 
         if(!TextUtils.isEmpty(user) && !TextUtils.isEmpty(password)){
             progressBar.visibility = View.VISIBLE
@@ -98,7 +95,8 @@ class LoginActivity : AppCompatActivity() {
         mDb.child("User").child(userKey!!).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val usertype = dataSnapshot.child("userType").getValue(String::class.java)
-                runActivity(usertype)
+                val idPaseador = dataSnapshot.child("id_paseador").getValue(String::class.java)
+                runActivity(usertype, userKey, idPaseador)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -106,14 +104,22 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun runActivity(usertype: String?) {
+    private fun runActivity(usertype: String?, userKey: String?, idPaseador: String?) {
 
         when (usertype) {
-            "Dueñio" -> startActivity(Intent(this,DuenioInicioActivity::class.java))
+            "Dueñio" -> isFirstSession(userKey, idPaseador)
             "Paseador" -> startActivity(Intent(this,PaseadorInicioActivity::class.java))
             else -> { // Note the block
                 Toast.makeText(this,"Error:" + usertype, Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun isFirstSession(userKey: String?, idPaseador: String?) {
+        if(!TextUtils.isEmpty(idPaseador)){
+            startActivity(Intent(this,DuenioInicioActivity::class.java))
+        }else{
+            startActivity(Intent(this,SeleccionarPaseadorActivity::class.java))
         }
     }
 }

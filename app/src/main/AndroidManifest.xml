@@ -38,6 +38,7 @@
         <activity android:name=".CalendarioPaseadorActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".SeleccionarPaseadorActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"

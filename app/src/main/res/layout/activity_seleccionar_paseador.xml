@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SeleccionarPaseadorActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rellay1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Paseador"
+                        android:textColor="@color/headings"
+                        android:textSize="13sp"/>
+
+                    <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <AutoCompleteTextView
+                            android:layout_weight="1"
+                            android:id="@+id/txtsp"
+                            android:hint="Seleccionar Paseador"
+                            android:layout_width="0dp"
+                            android:layout_height= "wrap_content"
+                            android:theme="@style/Autocomplete"/>
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_marginRight="20dp"
+                            android:layout_width="30dp"
+                            android:layout_height="50dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/buttonView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+
+                    <Button
+                        android:onClick="save"
+                        android:id="@+id/buttonUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GUARDAR"
+                        android:layout_gravity="center"
+                        android:background="@color/headings"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
