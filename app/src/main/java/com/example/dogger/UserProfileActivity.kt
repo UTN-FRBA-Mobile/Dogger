@@ -4,21 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_login.*
-import android.text.InputType
 import android.text.TextUtils
-import android.view.KeyEvent
 import android.view.View
 import android.widget.*
 import com.google.firebase.auth.*
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
-
-
 
 
 class UserProfileActivity : AppCompatActivity() {
@@ -27,7 +16,9 @@ class UserProfileActivity : AppCompatActivity() {
     private lateinit var txtEmail: EditText
     private lateinit var txtNroCel:EditText
     private lateinit var txtTypeUser: AutoCompleteTextView
+    private lateinit var txtPaseador: EditText
     private lateinit var linearLayout:LinearLayout
+    private lateinit var linearLayoutPaseador:LinearLayout
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var spinner: Spinner
 
@@ -52,6 +43,7 @@ class UserProfileActivity : AppCompatActivity() {
         txtEmail = findViewById(R.id.txtEmail)
         txtNroCel = findViewById(R.id.txtNroCel)
         txtTypeUser = findViewById(R.id.txtTypeUser)
+        txtPaseador = findViewById(R.id.txtPaseador)
 
         user = auth.currentUser!!
 
@@ -117,13 +109,39 @@ class UserProfileActivity : AppCompatActivity() {
         dfReference.child("User").child(userKey!!).addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                linearLayoutPaseador = findViewById(R.id.linearLayoutPaseador)
                 val userName = dataSnapshot.child("name").getValue(String::class.java)
                 val nroCel = dataSnapshot.child("nroCel").getValue(String::class.java)
                 val userType = dataSnapshot.child("userType").getValue(String::class.java)
+                txtPaseador.setEnabled(false)
+                if (!"Paseador".equals(userType)){
+                    linearLayoutPaseador.setVisibility(View.VISIBLE)
+                    linearLayoutPaseador.setEnabled(true)
+                    txtPaseador.setVisibility(View.VISIBLE)
+                    val id_paseador = dataSnapshot.child("id_paseador").getValue(String::class.java)
+                    cargarPaseador(id_paseador)
+                }else{
+                    linearLayoutPaseador.setVisibility(View.INVISIBLE)
+                    linearLayoutPaseador.setEnabled(false)
+                    txtPaseador.setVisibility(View.INVISIBLE)
+                }
                 txtName.setText(userName)
                 txtNroCel.setText(nroCel)
                 val spinnerPosition = adapter.getPosition(userType)
                 spinner.setSelection(spinnerPosition)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
+    private fun cargarPaseador(idPaseador: String?) {
+        dfReference.child("User").child(idPaseador!!).addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                linearLayoutPaseador = findViewById(R.id.linearLayoutPaseador)
+                val userName = dataSnapshot.child("name").getValue(String::class.java)
+                txtPaseador.setText(userName)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
